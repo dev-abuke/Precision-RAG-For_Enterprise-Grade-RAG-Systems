@@ -7,7 +7,7 @@ from experiments.data.instruction_induction.load_data import load_data
 from automatic_prompt_engineer.ape import get_simple_prompt_gen_template
 from automatic_prompt_engineer import ape, evaluate, config, template, llm
 
-model_types = ['text-ada-001', 'text-babbage-001', 'text-curie-001', 'text-davinci-002']
+model_types = ['text-ada-001', 'text-babbage-001', 'text-curie-001', 'gpt-3.5-turbo-0125']
 mode_types = ['forward', 'insert']
 eval_types = ['likelihood', 'bandits']
 task_types = ['antonyms', 'cause_and_effect', 'common_concept', 'diff', 'first_word_letter',
