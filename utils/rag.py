@@ -10,7 +10,7 @@ class RAG:
     def __init__(self):
 
         self.chat = ChatOpenAI(
-            model="gpt-4o",
+            # model="gpt-4o",
             temperature=0,
             max_tokens=None,
             timeout=None,
@@ -29,9 +29,10 @@ class RAG:
             AIMessage(content="I'm great thank you. How can I help you?"),
         ]
 
-    def generate_prompt(self, augmented_query):
+    def generate_answer(self, augmented_query: str):
+
         self.messages.append(HumanMessage(content=augmented_query))
         response = self.chat(self.messages)
-        self.messages.append(AIMessage(content=response))
+        self.messages.append(response)
         return response.content
     
