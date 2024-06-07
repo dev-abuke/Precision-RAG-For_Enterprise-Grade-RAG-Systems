@@ -1,9 +1,10 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores.pinecone import PineconeStore
-from langchain.document_loaders.fs.pdf import PDFLoader
-from langchain.document_loaders.fs.directory import DirectoryLoader
-from langchain.utils.pinecone_client import pinecone
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_openai import OpenAIEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from pinecone import Pinecone, ServerlessSpec
+import time
+from langchain_pinecone import PineconeVectorStore
+
 
 PINECONE_INDEX_NAME = "pdf-doc"
 PINECONE_NAME_SPACE = "pdf-namespace"
@@ -11,33 +12,28 @@ PINECONE_NAME_SPACE = "pdf-namespace"
 # Make sure to add your PDF files inside the 'docs' folder
 file_path = 'data'
 
-def run():
+def vectorize_documents(doc_path: str = "./data/10 Academy Cohort B - Weekly Challenge_ Week - 7.pdf"):
     try:
+        # initialize embeddings
+        embeddings = OpenAIEmbeddings()
         # load raw docs from all files in the directory
-        directory_loader = PDFLoader("../data/10 Academy Cohort B - Weekly Challenge_ Week - 7.pdf")
+        directory_loader = PyPDFLoader(doc_path)
 
+        # load raw docs from all files in the directory in parallel
         raw_docs = directory_loader.load()
 
-        # Split text into chunks
+        # Split text into chunks in parallel
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-
+        
+        # Split text into chunks in parallel and store the embeddings in the vector store
         docs = text_splitter.split_documents(raw_docs)
-        print('split docs', docs)
+        
+        return docs
 
-        print('creating vector store...')
-        # create and store the embeddings in the vector store
-        embeddings = OpenAIEmbeddings()
-        index = pinecone.Index(PINECONE_INDEX_NAME)  # change to your own index name
-
-        # embed the PDF documents
-        PineconeStore.from_documents(docs, embeddings, {
-            'pineconeIndex': index,
-            'namespace': PINECONE_NAME_SPACE,
-            'textKey': 'text',
-        })
     except Exception as error:
         print('error', error)
         raise Exception('Failed to ingest your data')
+
 
 if __name__ == "__main__":
     run()
