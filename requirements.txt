@@ -4,3 +4,4 @@ datasets==2.10.1
 pinecone-client==2.2.4
 tiktoken==0.5.1
 PyPDF2
+flask
