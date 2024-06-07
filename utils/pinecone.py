@@ -30,10 +30,22 @@ class PineconeVector:
         return index, pc
     
     def insert(self, split_documents):
-        pinecone_vectorstore = PineconeVectorStore.from_documents(
+        self.pinecone_vectorstore = PineconeVectorStore.from_documents(
             split_documents, 
             self.embeddings, 
             index_name=self.index_name
         )
 
-        return pinecone_vectorstore
+        return self.pinecone_vectorstore
+        
+    def search_vectorstore(self, query: str):
+        
+        # get top 3 results from knowledge base
+        results = self.pinecone_vectorstore.similarity_search(query, k=3)
+        # check if there are any results
+        if not results:
+            raise ValueError("No results found in the knowledge base")
+        # get the text from the results
+        source_knowledge = "\n".join([x.page_content for x in results])
+
+        return source_knowledge
