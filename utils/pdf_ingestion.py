@@ -1,21 +1,10 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from pinecone import Pinecone, ServerlessSpec
-import time
-from langchain_pinecone import PineconeVectorStore
 
 
-PINECONE_INDEX_NAME = "pdf-doc"
-PINECONE_NAME_SPACE = "pdf-namespace"
-# Name of directory to retrieve your files from
-# Make sure to add your PDF files inside the 'docs' folder
-file_path = 'data'
-
-def vectorize_documents(doc_path: str = "./data/10 Academy Cohort B - Weekly Challenge_ Week - 7.pdf"):
+def split_documents(doc_path: str = "./data/10 Academy Cohort B - Weekly Challenge_ Week - 7.pdf"):
     try:
-        # initialize embeddings
-        embeddings = OpenAIEmbeddings()
         # load raw docs from all files in the directory
         directory_loader = PyPDFLoader(doc_path)
 
@@ -32,9 +21,4 @@ def vectorize_documents(doc_path: str = "./data/10 Academy Cohort B - Weekly Cha
 
     except Exception as error:
         print('error', error)
-        raise Exception('Failed to ingest your data')
-
-
-if __name__ == "__main__":
-    run()
-    print('ingestion complete')
+        raise Exception('Failed to split your data')
