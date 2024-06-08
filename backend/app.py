@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, make_response
 import os, sys
 from openai import OpenAI
 from utility.env_manager import get_env_manager
@@ -9,6 +9,10 @@ from evaluation._data_generation import file_reader
 from evaluation._evaluation import evaluate
 from prompts.prompts import get_test_prompts
 from utility.rag import RAG
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
 
 sys.path.append("./uploaded_docs/")
 
@@ -26,6 +30,24 @@ index, pc = pcv.create_pinecone_index()
 vector = pcv.insert(split_document)
 
 app = Flask(__name__)
+
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,OPTIONS'
+    return response
+
+@app.before_request
+def before_request():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response = add_cors_headers(response)
+        return response
+
+@app.after_request
+def after_request(response):
+    response = add_cors_headers(response)
+    return response
 
 @app.route('/')
 def home():
@@ -63,8 +85,10 @@ def generate():
         prompt_score.append({'prompt': test_prompt, 'classification': classification, 'accuracy': accuracy})
 
 
+    response = jsonify({'message': prompt_score, "status": True})
+    response = add_cors_headers(response)
     # return 200 response and the classification and accuracy
-    return {'message': prompt_score, "status": True}
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
