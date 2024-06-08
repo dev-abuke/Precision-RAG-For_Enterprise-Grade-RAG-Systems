@@ -1,20 +1,3 @@
-from langchain_pinecone import PineconeVectorStore
-
-
-def augment_prompt(query: str, source_knowledge: str) -> str:
-    # check if the query is None or empty
-    if not query:
-        raise ValueError("Query cannot be empty")
-    # check if the pinecone_vector_db object is None
-    if not source_knowledge:
-        raise ValueError("Source knowledge object cannot be None")
-    # feed into an augmented prompt
-    augmented_prompt = f"""Using the contexts below, answer the query.
-    Contexts:
-    {source_knowledge}
-    Query: {query}"""
-    return augmented_prompt
-
 def get_test_prompts(num, Context, Objective):
 
     return f"""Understand the given context and generate {num} best test prompts based on the user's objective.
@@ -56,7 +39,18 @@ def get_test_prompts(num, Context, Objective):
     - Propose potential use cases or scenarios where Objective can be applied.
 
     OUTPUT FORMAT:
-    Must be only one question perline
-    Must be only questions, no extra text or other information
+    Must be list of questions only
+    No extra text
+    No numbering or other sequential decorations
+    All questions must be on their own lines
+
+    EXAMPLE OUTPUT:
+    Summarize the main points of the context related to Objective.
+    Extract key information about specific topic from the context.
+    Explain how specific element in the context relates to Objective.
+    Clarify the meaning of specific term or phrase mentioned in the context.
+    Generate questions that could help explore Objective further based on the context.
+    Suggest practical applications or implications of Objective based on the context.
+    
 
     """
