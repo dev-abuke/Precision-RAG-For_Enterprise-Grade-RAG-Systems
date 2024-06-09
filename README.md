@@ -1,5 +1,29 @@
 # Precision RAG for Enterprise-Grade Systems
 
+- [Overview](#overview)
+- [Project Goals and Objectives](#project-goals-and-objectives)
+  - [Automate Prompt Generation](#automate-prompt-generation)
+  - [Implement Evaluation Data Generation](#implement-evaluation-data-generation)
+  - [Develop a Robust Prompt Testing and Ranking System](#develop-a-robust-prompt-testing-and-ranking-system)
+  - [Integrate Advanced Tools like Pinecone and LangChain](#integrate-advanced-tools-like-pinecone-and-langchain)
+  - [Design a User-Friendly Interface](#design-a-user-friendly-interface)
+  - [Ensure Comprehensive System Integration and Testing](#ensure-comprehensive-system-integration-and-testing)
+- [Tech Stack](#tech-stack)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+  - [Other Tools](#other-tools)
+- [Project Structure](#project-structure)
+- [Code Structure](#code-structure)
+- [Installation](#installation)
+- [Backend Setup](#backend-setup)
+- [Frontend Setup](#frontend-setup)
+- [Accessing the Backend Application](#accessing-the-backend-application)
+- [Contributing](#contributing)
+  - [How to Contribute](#how-to-contribute)
+  - [Reporting Issues](#reporting-issues)
+  - [Feature Requests](#feature-requests)
+  - [License Information](#license-information)
+
 ## Overview
 
 This project focuses on developing an enterprise-grade Retrieval-Augmented Generation (RAG) system that automates prompt generation, evaluation, and testing for Language Models (LLMs) like GPT-4. By integrating advanced prompt engineering techniques and cutting-edge tools like Pinecone and LangChain, this project aims to enhance the efficiency, effectiveness, and accessibility of LLMs in various business applications.
