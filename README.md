@@ -80,7 +80,6 @@ This project focuses on developing an enterprise-grade Retrieval-Augmented Gener
   - `utility/`: Utility scripts and functions.
   - `app.py`: Main backend application script.
 - `data/`: Directory for storing data files.
-- `DataRoom/`: Additional data resources.
 - `frontend/`: Frontend code for the project.
 - `notebooks/`: Jupyter notebooks for experimentation and development.
 - `rag/`: RAG system implementation.
