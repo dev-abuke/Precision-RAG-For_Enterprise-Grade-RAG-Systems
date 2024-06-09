@@ -263,7 +263,7 @@ We welcome new ideas and feature requests. If you have a suggestion for improvin
 
 ## License Information
 
-See `https://github.com/dev-abuke/Precision-RAG-For_Enterprise-Grade-RAG-Systems/blob/main/License.md`
+See https://github.com/dev-abuke/Precision-RAG-For_Enterprise-Grade-RAG-Systems/blob/main/License.md
 
 ## Thank you for contributing!
 
