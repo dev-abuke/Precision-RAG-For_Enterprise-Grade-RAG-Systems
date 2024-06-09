@@ -7,8 +7,9 @@ from langchain_openai import OpenAIEmbeddings
 class PineconeVector:
     def __init__(self, index_name):
         self.index_name = index_name
+
         self.embeddings = OpenAIEmbeddings()
-    def create_pinecone_index(self):
+
         pinecone_api_key = os.environ.get("PINECONE_API_KEY")
 
         self.pc = Pinecone(api_key=pinecone_api_key)
@@ -26,8 +27,6 @@ class PineconeVector:
                 time.sleep(1)
 
         self.index = self.pc.Index(self.index_name)
-
-        return self.index, self.pc
     
     def insert(self, split_documents):
         self.pinecone_vectorstore = PineconeVectorStore.from_documents(
@@ -65,7 +64,7 @@ class PineconeVector:
         xq = self.embeddings.embed_query(query)
         
         # Perform a query on the Pinecone index.
-        xc = self.index.query(vector=xq, top_k=5, include_metadata=True)
+        xc = self.index.query(vector=xq, top_k=3, include_metadata=True)
         
         # Initialize an empty list to store the results of the query.
         query_results = []
@@ -90,5 +89,6 @@ class PineconeVector:
             query_results.append(result_dict)
             
             # Print the score and text of the result.
-            # The f-string is used to format the string with the score and text.
-            print(f"{result_dict['score']}: {text}")
+            # print(f"{result_dict['score']}: {text}")
+
+        return query_results
