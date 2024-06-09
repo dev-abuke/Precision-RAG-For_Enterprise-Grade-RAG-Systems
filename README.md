@@ -130,11 +130,11 @@ This project focuses on developing an enterprise-grade Retrieval-Augmented Gener
 
 1. **Clone the Repository**
    ```sh
-   git clone https://github.com/dev-abbuke/precision-rag-for-enterprise-grade-systems.git
+   git clone https://github.com/dev-abuke/Precision-RAG-For_Enterprise-Grade-RAG-Systems.git PrecisionRag
    ```
 2. **Navigate to Directory**
    ```sh
-   cd precision-rag-for-enterprise-grade-systems 
+   cd PrecisionRag
    ```
 3. **Set Up Environment Variables**
    
