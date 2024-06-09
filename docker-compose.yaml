@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "5000:5000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+
+# Uncomment this if you want to use pinecone locally
+#   pinecone:
+#     image: pinecone/pinecone:latest
+#     container_name: pinecone
+#     environment:
+#       - PINECONE_API_KEY=${PINECONE_API_KEY}
+#     volumes:
+#       - pinecone-data:/data
+
+# volumes:
+#   pinecone-data:
