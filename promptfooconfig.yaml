@@ -1,30 +1,70 @@
-# This configuration compares LLM output of 2 prompts x 2 GPT models across 3 test cases.
-# Learn more: https://promptfoo.dev/docs/configuration/guide
-description: 'My first eval'
+# prompts: ['{{ query }}']
+# providers: ['python:prompt_test\pinecone_retrieve.py']
+# tests:
+#   - description: Asking For Tutors in a Week7 Challege Document
+#     vars:
+#       query: Who are the tutors for this weeks challenge?
+#     assert:
+#       - type: contains-all
+#         value: ['Yabebal', 'Emtinan', 'Rehmet']
 
-prompts:
-  - "Write a tweet about {{topic}}"
-  - "Write a very concise, funny tweet about {{topic}}"
+#   - description: Asking for Company Info in a Week7 Challege Document
+#     vars:
+#       query: What does the company PromptlyTech do?
+#     assert:
+#       - type: llm-rubric
+#         provider: openai:gpt-3.5-turbo-0125
+#         value: Answer Resembles - The company PromptlyTech is an innovative e-business specializing in providing AI-driven solutions for optimizing the use of Language Models (LLMs)
 
-providers:
-  - openai:gpt-3.5-turbo-0613
+#   - description: Asking for Submission Deadline in a Week7 Challege Document
+#     vars:
+#       query: When is the interim submission deadline?
+#     assert:
+#       - type: contains
+#         value: Wednesday 8pm UTC
 
+# TODO check if the LLM responded with 5 questions
+
+prompts: ['prompt_test\context_prompt.txt', 'prompt_test\context_prompt2.txt', 'prompt_test\context_prompt3.txt',]
+providers: ['openai:gpt-3.5-turbo-0125']
 tests:
-  - vars:
-      topic: bananas
-
-  - vars:
-      topic: avocado toast
+  - description: Asking For Tutors - LLM Rubric
+    vars:
+      query: Who are the tutors for this weeks challenge?
+      context: file://prompt_test\load_context.py
     assert:
-      # For more information on assertions, see https://promptfoo.dev/docs/configuration/expected-outputs
-      - type: icontains
-        value: avocado
-      - type: javascript
-        value: 1 / (output.length + 1)  # prefer shorter outputs
+      - type: factuality
+        provider: openai:gpt-3.5-turbo
+        threshold: 0.6
+        value: The tutors are Yabebal, Emtinan and Rehmet
+      - type: answer-relevance
+        provider: openai:gpt-3.5-turbo
+        threshold: 0.8
+      - type: contains-all
+        value: ['Yabebal', 'Emtinan', 'Rehmet']
 
-  - vars:
-      topic: new york city
+  - description: Asking for Company Info in a Week7 Challege Document
+    vars:
+      query: What does the company PromptlyTech do?
+      context: file://prompt_test\load_context.py
     assert:
-      # For more information on model-graded evals, see https://promptfoo.dev/docs/configuration/expected-outputs/model-graded
       - type: llm-rubric
-        value: ensure that the output is funny
+        provider: openai:gpt-3.5-turbo
+        value: Answer should atleast be in context with - The company PromptlyTech is an innovative e-business specializing in providing AI-driven solutions for optimizing the use of Language Models (LLMs)
+
+  - description: Asking for Submission Deadline in a Week7 Challege Document
+    vars:
+      query: When is the interim submission deadline?
+      context: file://prompt_test\load_context.py
+    assert:
+      - type: factuality
+        provider: openai:gpt-3.5-turbo
+        value: It is on Wednesday 8pm UTC
+      - type: answer-relevance
+        provider: openai:gpt-3.5-turbo
+        threshold: 0.8
+      - type: similar
+        value: The deadline for the interim submission is Wednesday 8pm UTC
+        threshold: 0.7
+      - type: contains-all
+        value: ['Wednesday', '8pm', 'UTC']
