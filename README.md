@@ -137,6 +137,7 @@ This project focuses on developing an enterprise-grade Retrieval-Augmented Gener
    cd precision-rag-for-enterprise-grade-systems 
    ```
 3. **Set Up Environment Variables**
+   
    Create a .env file in the backend directory and add your environment variables, such as Pinecone API key and other configurations.
 
    ```sh
@@ -147,6 +148,12 @@ This project focuses on developing an enterprise-grade Retrieval-Augmented Gener
    ```sh
    OPENAI_API_KEY="sk-*****************************"
    PINECONE_API_KEY="******************************"
+   ```
+4. **Set Up Virtual Environment**
+
+   ```sh
+   python -m venv myenv
+   source myenv/bin/activate   # On Windows use `env\Scripts\activate`
    ```
 
 ## Backend Setup
