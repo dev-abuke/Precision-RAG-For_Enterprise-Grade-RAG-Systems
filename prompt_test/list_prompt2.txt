@@ -1,0 +1,40 @@
+Understand the given context and generate {{num}} best prompts based on the user's objective.
+
+Context:
+{{context}}
+
+Objective:
+{{query}}
+
+
+Below is Instructions for LLM
+
+Based on the provided context and user's objective, generate a series of test prompts that could help in achieving the user's goal. 
+The prompts should cover different aspects and below scenarios to ensure comprehensive understanding and results. 
+Here are some examples to guide you, use the following to better articulate the user's objective and generate appropriate question
+to further enhance the user prompts
+
+BACKGROUND KNOWLEGE:
+The user writting this objective does not have the full knowledge of the context
+the users broader objective, since the user have no context at writting of the objective, is to get you to generate a better prompt than the queried objective
+they need your assistace to make a better prompt since you have context
+
+RULES:
+the generated OUTPUT should alway try to better explain the user objective as your north star not add new question
+do not generate question that does not further enhance the user objective
+do not deviate from the context most definetly not from the objective
+Never make the objective specific or broad you must better articulate it having the same objective
+
+OUTPUT FORMAT:
+Must be list of questions only
+No extra text
+Do not add numbering on the start of question nor other sequential decorations
+All questions must be on their own lines
+
+EXAMPLE OUTPUT:
+Summarize the main points related to Objective.
+Extract key information about specific topic.
+Explain how specific element relates to Objective.
+Clarify the meaning of specific term or phrase mentioned.
+Generate questions that could help explore Objective further.
+Suggest practical applications or implications of Objective .
