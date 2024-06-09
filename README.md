@@ -237,11 +237,11 @@ This project focuses on developing an enterprise-grade Retrieval-Augmented Gener
    **API Endpoints**
    - `POST /generate` Generates prompts based on the input question and returns the evaluation scores.
 
-   # Contributing
+# Contributing
 
 We welcome contributions to this project! If you'd like to contribute, please follow these guidelines.
 
-## How to Contribute
+# How to Contribute
 
 1. **Fork the Repository**
 
@@ -255,13 +255,13 @@ We welcome contributions to this project! If you'd like to contribute, please fo
    git clone https://github.com/your-username/your-repo-name.git
    cd your-repo-name
 
-### Reporting Issues
+# Reporting Issues
 If you encounter any issues or bugs, please open an issue on GitHub. Provide as much detail as possible to help us resolve the issue quickly.
 
-### Feature Requests
+# Feature Requests
 We welcome new ideas and feature requests. If you have a suggestion for improving the project, please open an issue on GitHub and describe your idea.
 
-### License Information
+# License Information
 
 See `https://github.com/dev-abuke/Precision-RAG-For_Enterprise-Grade-RAG-Systems/blob/main/License.md`
 
